@@ -1,58 +1,18 @@
-const form = document.getElementById('form');
-const input = document.getElementById('input');
-const todosUL = document.getElementById('todos');
+function addTask() {
+    let taskInput = document.getElementById("taskInput");
+    let taskText = taskInput.value.trim();
+    if (taskText === "") return;
 
-const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    let li = document.createElement("li");
+    li.innerHTML = `${taskText} <button class="delete-btn" onclick="removeTask(this)">Delete</button>`;
+    li.addEventListener("click", function () {
+        this.classList.toggle("completed");
+    });
 
-if (todos.length) {
-    todos.forEach(addTodo);
+    document.getElementById("taskList").appendChild(li);
+    taskInput.value = "";
 }
 
-// Handle form submission
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    addTodo();
-});
-
-// Add a new todo
-function addTodo(todo = {}) {
-    const todoText = todo.text || input.value.trim();
-
-    if (!todoText) return; 
-
-    const todoEl = document.createElement('li');
-    todoEl.innerText = todoText;
-    if (todo.completed) todoEl.classList.add('completed');
-
-    todosUL.appendChild(todoEl);
-    input.value = '';
-    input.focus();
-
-    updateLocalStorage();
-}
-
-// Event delegation for toggling and removing todos
-todosUL.addEventListener('click', (e) => {
-    if (e.target.tagName === 'LI') {
-        e.target.classList.toggle('completed');
-        updateLocalStorage();
-    }
-});
-
-todosUL.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    if (e.target.tagName === 'LI') {
-        e.target.remove();
-        updateLocalStorage();
-    }
-});
-
-// Update localStorage
-function updateLocalStorage() {
-    const todos = Array.from(todosUL.children).map(todoEl => ({
-        text: todoEl.innerText,
-        completed: todoEl.classList.contains('completed'),
-    }));
-
-    localStorage.setItem('todos', JSON.stringify(todos));
+function removeTask(button) {
+    button.parentElement.remove();
 }
