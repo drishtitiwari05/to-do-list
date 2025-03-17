@@ -3,26 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <link rel="stylesheet" href="style.css">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="todo.css">
 </head>
 <body>
-    <main class="container">
-        <h1>Todo List</h1>
-        <form id="form">
-            <label for="input" class="visually-hidden">Add a new task</label>
-            <input 
-                type="text" 
-                class="input" 
-                id="input" 
-                placeholder="What needs to be done?" 
-                autocomplete="off" 
-                aria-label="Enter your todo"
-            >
-            <ul class="todos" id="todos"></ul>
-        </form>
-        <small>Left-click to toggle completed. <br> Right-click to delete a todo.</small>
-    </main>
-    <script src="script.js"></script>
+    <div class="container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script src="todo.js"></script>
 </body>
 </html>
